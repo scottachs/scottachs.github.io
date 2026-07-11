@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scott Achs</title>
+<meta name="description" content="An index of small tools and experiments built and hosted by Scott Achs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EFEFEA;
+    --ink: #1A1B18;
+    --ink-soft: #6E6A61;
+    --accent: #35505F;
+    --accent-soft: #7C919B;
+    --hairline: #DBD8CE;
+    --live-dot: #6C8760;
+    --focus: #35505F;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* Header */
+  .site-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .wordmark {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: 0.01em;
+  }
+
+  .site-header nav a {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    padding-bottom: 2px;
+  }
+
+  .site-header nav a:hover {
+    color: var(--ink);
+    border-color: var(--ink-soft);
+  }
+
+  /* Intro */
+  .intro {
+    padding: 64px 0 48px;
+  }
+
+  .intro h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    line-height: 1.2;
+    margin: 0 0 18px;
+    max-width: 22ch;
+  }
+
+  .intro p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  /* Ledger */
+  .ledger {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .ledger-labels {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    gap: 24px;
+    padding: 14px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    gap: 24px;
+    align-items: start;
+    padding: 26px 0;
+    border-top: 1px solid var(--hairline);
+    transition: background 0.15s ease;
+  }
+
+  .entry-link {
+    display: block;
+    margin: 0 -28px;
+    padding: 0 28px;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .entry-link:hover {
+    background: rgba(53, 80, 95, 0.05);
+  }
+
+  .entry-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding-top: 3px;
+  }
+
+  .entry-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.18rem;
+    margin: 0 0 6px;
+  }
+
+  .entry-desc {
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+    max-width: 44ch;
+  }
+
+  .entry-tags {
+    display: flex;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent-soft);
+  }
+
+  .entry-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--live-dot);
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dot {
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  /* Elsewhere */
+  .elsewhere {
+    padding: 56px 0 40px;
+    border-top: 1px solid var(--hairline);
+    margin-top: 8px;
+  }
+
+  .elsewhere .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 14px;
+  }
+
+  .elsewhere a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+  }
+
+  .elsewhere a:hover {
+    border-color: var(--ink);
+  }
+
+  .elsewhere a .arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent-soft);
+  }
+
+  /* Footer */
+  footer {
+    padding: 40px 0 60px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  footer a {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  footer a:hover {
+    border-color: var(--ink-soft);
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .ledger-labels { display: none; }
+
+    .entry-link {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin: 0 -20px;
+      padding: 0 20px;
+    }
+
+    .entry-year {
+      order: -1;
+    }
+
+    .entry-status {
+      justify-content: flex-start;
+      padding-top: 2px;
+    }
+
+    .wrap { padding: 0 20px; }
+
+    .site-header { padding: 40px 0 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="site-header">
+    <div class="wordmark">Scott Achs</div>
+    <nav>
+      <a href="https://www.scottachsphotography.com">Photography</a>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h1>An index of small builds</h1>
+    <p>This is where small tools and experiments live once they're finished enough to use. Most solve one problem. All of them are free to open — no accounts, no downloads.</p>
+  </section>
+
+  <section class="ledger" id="ledger">
+    <div class="ledger-labels">
+      <span>Year</span>
+      <span>Project</span>
+      <span style="text-align:right;">Status</span>
+    </div>
+    <!-- entries injected by script below -->
+  </section>
+
+  <section class="elsewhere">
+    <p class="label">Elsewhere</p>
+    <a href="https://www.scottachsphotography.com">
+      Photography <span class="arrow">→ scottachsphotography.com</span>
+    </a>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Scott Achs &middot; <a href="https://github.com/scottachs">GitHub</a></p>
+  </footer>
+
+</div>
+
+<script>
+  // Add future sites here — each becomes a row in the ledger, in order.
+  const entries = [
+    {
+      year: "2026",
+      name: "Wet-Bulb Calculator",
+      description: "Enter temperature and humidity to see the wet-bulb reading and heat-stress risk.",
+      tags: ["HTML", "JS"],
+      status: "live",
+      url: "https://scottachs.github.io/wetbulbcalculator/"
+    }
+  ];
+
+  const ledger = document.getElementById('ledger');
+
+  entries.forEach(function (entry) {
+    const row = document.createElement('div');
+    row.className = 'entry';
+
+    row.innerHTML =
+      '<a class="entry-link" href="' + entry.url + '">' +
+        '<span class="entry-year">' + entry.year + '</span>' +
+        '<span>' +
+          '<p class="entry-name">' + entry.name + '</p>' +
+          '<p class="entry-desc">' + entry.description + '</p>' +
+          '<div class="entry-tags">' + entry.tags.map(function(t){ return '<span>' + t + '</span>'; }).join('') + '</div>' +
+        '</span>' +
+        '<span class="entry-status"><span class="dot"></span>' + entry.status + '</span>' +
+      '</a>';
+
+    ledger.appendChild(row);
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
