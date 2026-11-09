@@ -45,6 +45,21 @@
     padding: 0 28px;
   }
 
+  /* One centered column, exactly as wide as the title.
+     The lines and text below fill it, but they can never make it wider. */
+  .column {
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-bottom: 72px;
+  }
+
+  .ledger {
+    width: 0;
+    min-width: 100%;
+  }
+
   /* Intro */
   .intro {
     padding: 72px 0 48px;
@@ -56,34 +71,13 @@
     font-size: min(2.5rem, calc((100vw - 40px) / 13.9));
     line-height: 1.2;
     margin: 0 0 18px;
+    text-align: center;
     color: var(--paper);
   }
 
-  .intro p {
-    font-size: 1.02rem;
-    line-height: 1.65;
-    color: var(--paper);
-    max-width: 46ch;
-    margin: 0;
-  }
-
-  /* Ledger
-     The label row carries its own top line. On phones the label is
-     hidden and its line goes with it, so two lines never stack.
-     The ledger's bottom line always sits under the last site. */
+  /* Ledger: a line above each site, and one line under the last site. */
   .ledger {
     border-bottom: var(--divider);
-  }
-
-  .ledger-labels {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 14px 0;
-    border-top: var(--divider);
-    font-style: italic;
-    font-size: 0.9rem;
-    color: var(--paper);
   }
 
   .entry {
@@ -93,15 +87,8 @@
   .entry-link {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
     align-items: start;
-    margin: 0 -28px;
-    padding: 26px 28px;
-    transition: background 0.15s ease;
-  }
-
-  .entry-link:hover {
-    background: rgba(217, 200, 166, 0.08);
+    padding: 26px 0;
   }
 
   .entry-name {
@@ -109,6 +96,15 @@
     font-size: 1.22rem;
     color: var(--paper);
     margin: 0 0 6px;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.15s ease;
+  }
+
+  .entry-link:hover .entry-name {
+    text-decoration-color: var(--beige);
   }
 
   .entry-desc {
@@ -116,48 +112,17 @@
     line-height: 1.65;
     color: var(--paper);
     margin: 0 0 10px;
-    max-width: 46ch;
-  }
-
-  /* Contact, under the bottom line */
-  .contact {
-    padding: 22px 0 72px;
-    font-size: 0.96rem;
-    line-height: 1.65;
-    color: var(--paper);
-  }
-
-  .contact-label {
-    font-style: italic;
-  }
-
-  .contact a {
-    text-decoration: underline;
-    text-decoration-color: var(--beige);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-  }
-
-  .contact a:hover {
-    text-decoration-color: var(--paper);
   }
 
   /* Mobile */
   @media (max-width: 600px) {
-    .ledger-labels { display: none; }
-
-    .entry-link {
-      grid-template-columns: 1fr;
-      gap: 6px;
-      margin: 0 -20px;
-      padding: 22px 20px;
-    }
+    .entry-link { padding: 22px 0; }
 
     .wrap { padding: 0 20px; }
 
     .intro { padding: 48px 0 40px; }
 
-    .contact { padding: 20px 0 48px; }
+    .column { padding-bottom: 48px; }
   }
 </style>
   <script>
@@ -177,23 +142,17 @@
 <body>
 
 <div class="wrap">
+  <div class="column">
 
-  <section class="intro">
-    <h1>Color Photographs &amp; Videos</h1>
-  </section>
+    <section class="intro">
+      <h1>Color Photographs &amp; Videos</h1>
+    </section>
 
-  <section class="ledger" id="ledger">
-    <div class="ledger-labels">
-      <span>Project</span>
-    </div>
-    <!-- entries injected by script below -->
-  </section>
+    <section class="ledger" id="ledger">
+      <!-- entries injected by script below -->
+    </section>
 
-  <footer class="contact">
-    <span class="contact-label">Contact:</span>
-    <a href="mailto:scottachs@gmail.com">scottachs@gmail.com</a>
-  </footer>
-
+  </div>
 </div>
 
 <script>
