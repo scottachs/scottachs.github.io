@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scott Achs</title>
-<meta name="description" content="An index of small tools, experiments, and work by Scott Achs.">
+<meta name="description" content="Color photographs and videos by Scott Achs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #000000;
-    --ink: #F5F5F1;
-    --ink-soft: #A6A49B;
-    --yellow: #FFD400;
-    --hairline: #2B2B27;
+    --postal-green: #4E6B58;
+    --paper: #F7F7F4;
+    --beige: #D9C8A6;
+    /* Every divider line uses this one setting, so they always match. */
+    --divider: 1px solid var(--beige);
   }
 
   * { box-sizing: border-box; }
@@ -22,9 +22,9 @@
   html, body {
     margin: 0;
     padding: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background: var(--postal-green);
+    color: var(--paper);
+    font-family: 'Lora', Georgia, 'Times New Roman', serif;
   }
 
   a {
@@ -34,7 +34,7 @@
 
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid var(--yellow);
+    outline: 2px solid var(--beige);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -51,26 +51,28 @@
   }
 
   .intro h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    font-weight: 400;
+    /* Full size on computers. Shrinks a little on small phones so the title stays on one line. */
+    font-size: min(2.5rem, calc((100vw - 40px) / 13.9));
     line-height: 1.2;
     margin: 0 0 18px;
-    max-width: 22ch;
-    color: var(--ink);
+    color: var(--paper);
   }
 
   .intro p {
     font-size: 1.02rem;
     line-height: 1.65;
-    color: var(--ink-soft);
+    color: var(--paper);
     max-width: 46ch;
     margin: 0;
   }
 
-  /* Ledger */
+  /* Ledger
+     The label row carries its own top line. On phones the label is
+     hidden and its line goes with it, so two lines never stack.
+     The ledger's bottom line always sits under the last site. */
   .ledger {
-    border-top: 1px solid var(--hairline);
+    border-bottom: var(--divider);
   }
 
   .ledger-labels {
@@ -78,15 +80,14 @@
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 14px 0;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
+    border-top: var(--divider);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--paper);
   }
 
   .entry {
-    border-top: 1px solid var(--hairline);
+    border-top: var(--divider);
   }
 
   .entry-link {
@@ -100,23 +101,45 @@
   }
 
   .entry-link:hover {
-    background: rgba(255, 212, 0, 0.06);
+    background: rgba(217, 200, 166, 0.08);
   }
 
   .entry-name {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 1.22rem;
-    color: var(--yellow);
+    color: var(--paper);
     margin: 0 0 6px;
   }
 
   .entry-desc {
     font-size: 0.96rem;
-    line-height: 1.6;
-    color: var(--ink);
+    line-height: 1.65;
+    color: var(--paper);
     margin: 0 0 10px;
     max-width: 46ch;
+  }
+
+  /* Contact, under the bottom line */
+  .contact {
+    padding: 22px 0 72px;
+    font-size: 0.96rem;
+    line-height: 1.65;
+    color: var(--paper);
+  }
+
+  .contact-label {
+    font-style: italic;
+  }
+
+  .contact a {
+    text-decoration: underline;
+    text-decoration-color: var(--beige);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .contact a:hover {
+    text-decoration-color: var(--paper);
   }
 
   /* Mobile */
@@ -133,6 +156,8 @@
     .wrap { padding: 0 20px; }
 
     .intro { padding: 48px 0 40px; }
+
+    .contact { padding: 20px 0 48px; }
   }
 </style>
   <script>
@@ -154,7 +179,7 @@
 <div class="wrap">
 
   <section class="intro">
-    <h1>An index of small builds and what have you's</h1>
+    <h1>Color Photographs &amp; Videos</h1>
   </section>
 
   <section class="ledger" id="ledger">
@@ -163,6 +188,11 @@
     </div>
     <!-- entries injected by script below -->
   </section>
+
+  <footer class="contact">
+    <span class="contact-label">Contact:</span>
+    <a href="mailto:scottachs@gmail.com">scottachs@gmail.com</a>
+  </footer>
 
 </div>
 
@@ -176,34 +206,10 @@
       url: "https://www.scottachsphotography.com"
     },
     {
-      year: "2026",
-      name: "Song Lens",
-      description: "Type in any song and get a close read of its lyrics, influences, and hidden references, plus a few deep cuts worth queuing up next.",
-      url: "https://scottachs.github.io/songlens/"
-    },
-    {
       year: "ongoing",
       name: "YouTube",
       description: "Videos in and around Vermont.",
       url: "https://www.youtube.com/@clumpykitty3906"
-    },
-    {
-      year: "2026",
-      name: "Baccarat",
-      description: "Learn how to play baccarat. Once you learn the game, play live on the simulator.",
-      url: "https://scottachs.github.io/baccarat/"
-    },
-    {
-      year: "2026",
-      name: "Wet-Bulb Calculator",
-      description: "Enter temperature and humidity to see the wet-bulb reading and heat-stress risk.",
-      url: "https://scottachs.github.io/wetbulbcalculator/"
-    },
-    {
-      year: "2026",
-      name: "Recipes",
-      description: "A running collection of recipes worth repeating, tested more than once before they make the cut.",
-      url: "https://scottachs.github.io/recipes/"
     }
   ];
 
