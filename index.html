@@ -15,6 +15,10 @@
     --beige: #D9C8A6;
     /* Every divider line uses this one setting, so they always match. */
     --divider: 1px solid var(--beige);
+    /* Logo width. Smaller on phones so it always fits. */
+    --logo-w: min(17.5rem, calc(100vw - 56px));
+    /* How far the lines and text reach past each side of the logo. */
+    --line-extend: 96px;
   }
 
   * { box-sizing: border-box; }
@@ -45,19 +49,12 @@
     padding: 0 28px;
   }
 
-  /* One centered column, exactly as wide as the logo.
-     The lines and text below fill it, but they can never make it wider. */
+  /* One centered column: the logo's width plus a little extra on each side.
+     The lines and text fill it. It never gets wider than the screen. */
   .column {
-    width: -moz-fit-content;
-    width: fit-content;
-    max-width: 100%;
+    width: min(calc(var(--logo-w) + 2 * var(--line-extend)), 100%);
     margin: 0 auto;
     padding-bottom: 72px;
-  }
-
-  .ledger {
-    width: 0;
-    min-width: 100%;
   }
 
   /* Intro */
@@ -71,11 +68,11 @@
   }
 
   /* Your logo, drawn as shapes from your business card file.
-     Its width sets the column, so the lines below always match it.
-     It gets smaller on phones so it always fits. */
+     It sits centered above the lines. */
   .logo {
     display: block;
-    width: min(17.5rem, calc(100vw - 56px));
+    width: var(--logo-w);
+    margin: 0 auto;
     height: auto;
     aspect-ratio: 149.35 / 41.902;
     overflow: visible;
